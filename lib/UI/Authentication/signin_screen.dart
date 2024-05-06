@@ -7,10 +7,10 @@ class SignInScreen extends StatelessWidget {
   SignInScreen({super.key, required this.toggleView});
 
   final Function toggleView;
-  ValueNotifier<String> email = ValueNotifier<String>('');
-  ValueNotifier<String> password = ValueNotifier<String>('');
-  ValueNotifier<String> error = ValueNotifier<String>('');
-  ValueNotifier<bool> loading = ValueNotifier<bool>(false);
+  final ValueNotifier<String> email = ValueNotifier<String>('');
+  final ValueNotifier<String> password = ValueNotifier<String>('');
+  final ValueNotifier<String> error = ValueNotifier<String>('');
+  final ValueNotifier<bool> loading = ValueNotifier<bool>(false);
   final _formKey = GlobalKey<FormState>();
   final AuthService _auth = AuthService();
   bool isEmailValid(String email) {

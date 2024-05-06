@@ -1,7 +1,4 @@
 // ignore_for_file: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
-
-import 'dart:developer';
-
 import 'package:feedback_app/UI/widgets/loading.dart';
 import 'package:feedback_app/backend/auth/auth.dart';
 import 'package:feedback_app/backend/database/database.dart';
@@ -14,7 +11,7 @@ class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
   final AuthService _auth = AuthService();
-  List<String> questions = [
+  final List<String> questions = [
     "Teacher comes to class on time",
     "Teacher makes objectives clear",
     "Subject matter organized in logical sequence",
@@ -35,10 +32,31 @@ class HomeScreen extends StatelessWidget {
     "Teacher correction of scripts fair and impartial",
     "Teacher promptly values and returns papers",
   ];
-  String name = '';
+  final String name = '';
 
-  List<int> rate = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  ValueNotifier<List<String>> emoji = ValueNotifier([
+  final List<int> rate = [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ];
+  final ValueNotifier<List<String>> emoji = ValueNotifier([
     "",
     "",
     "",
