@@ -1,3 +1,4 @@
+import 'package:feedback_app/UI/Error/error_screen.dart';
 import 'package:feedback_app/UI/core/constants.dart';
 import 'package:feedback_app/UI/widgets/loading.dart';
 import 'package:feedback_app/backend/auth/auth.dart';
@@ -112,6 +113,14 @@ class SignInScreen extends StatelessWidget {
                                       await _auth.siginInWithEmailAndPassword(
                                           email.value, password.value);
                                   if (result == null) {
+                                    if (!context.mounted) return;
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) {
+                                          return const ErrorScreen();
+                                        },
+                                      ),
+                                    );
                                     error.value =
                                         'Something trouble with email and password';
                                     loading.value = false;

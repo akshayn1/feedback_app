@@ -1,3 +1,4 @@
+import 'package:feedback_app/UI/Error/error_screen.dart';
 import 'package:feedback_app/UI/core/constants.dart';
 import 'package:feedback_app/UI/widgets/loading.dart';
 import 'package:feedback_app/backend/auth/auth.dart';
@@ -219,6 +220,14 @@ class RegisterScreen extends StatelessWidget {
                                                   dropValue.value);
                                           print(result);
                                           if (result == null) {
+                                            if (!context.mounted) return;
+                                            Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                builder: (context) {
+                                                  return const ErrorScreen();
+                                                },
+                                              ),
+                                            );
                                             error.value =
                                                 'please supply valid email';
                                             loading.value = false;

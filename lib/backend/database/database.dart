@@ -3,13 +3,14 @@ import 'package:feedback_app/backend/model/user.dart';
 
 class DatabaseService {
   final String uid;
+
   DatabaseService({required this.uid});
   //collection refrence
-  final CollectionReference fdbCollection =
-      FirebaseFirestore.instance.collection('feedbacks');
 
   //
   Future updateUserData(
+    String isSubmitted,
+    String course,
     String name,
     String cls,
     String regNo,
@@ -34,10 +35,13 @@ class DatabaseService {
     int q19,
     int q20,
   ) async {
+    final CollectionReference fdbCollection =
+        FirebaseFirestore.instance.collection(course);
     return await fdbCollection.doc(uid).set({
       'name': name,
       'branch': cls,
       'registerNumber': regNo,
+      'isSubmitted': isSubmitted,
       'q1': q1,
       'q2': q2,
       'q3': q3,
@@ -63,35 +67,37 @@ class DatabaseService {
 
   UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
     return UserData(
-      uid,
-      snapshot['name'],
-      snapshot['registerNumber'],
-      snapshot['branch'],
-      snapshot['q1'],
-      snapshot['q2'],
-      snapshot['q3'],
-      snapshot['q4'],
-      snapshot['q5'],
-      snapshot['q6'],
-      snapshot['q7'],
-      snapshot['q8'],
-      snapshot['q9'],
-      snapshot['q10'],
-      snapshot['q11'],
-      snapshot['q12'],
-      snapshot['q13'],
-      snapshot['q14'],
-      snapshot['q15'],
-      snapshot['q16'],
-      snapshot['q17'],
-      snapshot['q18'],
-      snapshot['q19'],
-      snapshot['q20'],
-    );
+        uid,
+        snapshot['name'],
+        snapshot['registerNumber'],
+        snapshot['branch'],
+        snapshot['q1'],
+        snapshot['q2'],
+        snapshot['q3'],
+        snapshot['q4'],
+        snapshot['q5'],
+        snapshot['q6'],
+        snapshot['q7'],
+        snapshot['q8'],
+        snapshot['q9'],
+        snapshot['q10'],
+        snapshot['q11'],
+        snapshot['q12'],
+        snapshot['q13'],
+        snapshot['q14'],
+        snapshot['q15'],
+        snapshot['q16'],
+        snapshot['q17'],
+        snapshot['q18'],
+        snapshot['q19'],
+        snapshot['q20'],
+        snapshot['isSubmitted']);
   }
 
   // get streams
   Stream<UserData> get fdb {
+    final CollectionReference fdbCollection =
+        FirebaseFirestore.instance.collection('students');
     return fdbCollection.doc(uid).snapshots().map(_userDataFromSnapshot);
   }
 }

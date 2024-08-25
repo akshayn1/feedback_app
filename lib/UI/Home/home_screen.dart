@@ -1,4 +1,5 @@
 // ignore_for_file: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
+import 'package:feedback_app/UI/successfull/successfull_screen.dart';
 import 'package:feedback_app/UI/widgets/loading.dart';
 import 'package:feedback_app/backend/auth/auth.dart';
 import 'package:feedback_app/backend/database/database.dart';
@@ -8,7 +9,9 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key});
+  HomeScreen({super.key, required this.sub});
+
+  final String sub;
 
   final AuthService _auth = AuthService();
   final List<String> questions = [
@@ -135,10 +138,16 @@ class HomeScreen extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Text(
-                              questions[index],
-                              style: const TextStyle(
-                                  fontSize: 17, fontWeight: FontWeight.w500),
+                            Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Center(
+                                child: Text(
+                                  questions[index],
+                                  style: const TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ),
                             ),
                             ValueListenableBuilder(
                               valueListenable: emoji,
@@ -211,6 +220,8 @@ class HomeScreen extends StatelessWidget {
                   child: ElevatedButton(
                       onPressed: () async {
                         await DatabaseService(uid: user.uid).updateUserData(
+                          'true',
+                          sub,
                           uData.name,
                           uData.branch,
                           uData.regNo,
@@ -235,6 +246,38 @@ class HomeScreen extends StatelessWidget {
                           rate[18],
                           rate[19],
                         );
+                        await DatabaseService(uid: user.uid).updateUserData(
+                          'true',
+                          'students',
+                          uData.name,
+                          uData.branch,
+                          uData.regNo,
+                          0,
+                          0,
+                          0,
+                          0,
+                          0,
+                          0,
+                          0,
+                          0,
+                          0,
+                          0,
+                          0,
+                          0,
+                          0,
+                          0,
+                          0,
+                          0,
+                          0,
+                          0,
+                          0,
+                          0,
+                        );
+                        if (!context.mounted) return;
+                        Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(builder: (context) {
+                          return const SuccessfullScreen();
+                        }));
                       },
                       child: const Text(
                         "Submit",

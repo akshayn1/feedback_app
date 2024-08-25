@@ -1,5 +1,5 @@
 import 'package:feedback_app/UI/Authentication/authenticate.dart';
-import 'package:feedback_app/UI/Home/home_screen.dart';
+import 'package:feedback_app/UI/Subjects/semester_screen.dart';
 import 'package:feedback_app/backend/model/user.dart';
 
 import 'package:flutter/material.dart';
@@ -13,9 +13,9 @@ class Wrapper extends StatelessWidget {
     //return either home or authenticate widget
     final user = Provider.of<UserModel?>(context);
     if (user == null) {
-      return Authenticate();
+      return const Authenticate();
     } else {
-      return HomeScreen();
+      return SemesterScreen();
     }
   }
 }

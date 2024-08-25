@@ -41,6 +41,8 @@ class AuthService {
       // await DatabaseService(uid: user!.uid)
       //     .updateUserData('good', 'new user', 'btech');
       DatabaseService(uid: user!.uid).updateUserData(
+        'false',
+        'students',
         Name,
         branch,
         regNo,

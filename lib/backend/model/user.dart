@@ -5,6 +5,7 @@ class UserModel {
 }
 
 class UserData {
+  final String isSubmitted;
   final String uid;
   final String name;
   final String regNo;
@@ -54,5 +55,6 @@ class UserData {
       this.q17,
       this.q18,
       this.q19,
-      this.q20);
+      this.q20,
+      this.isSubmitted);
 }
