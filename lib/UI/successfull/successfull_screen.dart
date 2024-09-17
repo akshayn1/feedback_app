@@ -37,14 +37,13 @@ class SuccessfullScreen extends StatelessWidget {
                 width: 150,
                 child: ElevatedButton(
                     style: const ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll(kPrimary),
-                        foregroundColor:
-                            MaterialStatePropertyAll(Colors.white)),
+                        backgroundColor: WidgetStatePropertyAll(kPrimary),
+                        foregroundColor: WidgetStatePropertyAll(Colors.white)),
                     onPressed: () {
-                      SystemNavigator.pop();
+                      Navigator.of(context).pop();
                     },
                     child:
-                        const Text("Exit App", style: TextStyle(fontSize: 18))),
+                        const Text("Go back", style: TextStyle(fontSize: 18))),
               )
             ],
           ),

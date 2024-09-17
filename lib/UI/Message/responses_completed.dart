@@ -3,8 +3,8 @@ import 'package:feedback_app/backend/auth/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class AlreadySubmitted extends StatelessWidget {
-  const AlreadySubmitted({super.key});
+class ResponsesCompleted extends StatelessWidget {
+  const ResponsesCompleted({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class AlreadySubmitted extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.all(8.0),
               child: Text(
-                "You have already submitted your responses in this subject",
+                "Responses for this Subject is completed",
                 style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
               ),
             ),
@@ -58,20 +58,30 @@ class AlreadySubmitted extends StatelessWidget {
             SizedBox(
               width: 150,
               height: 50,
-              child: ElevatedButton.icon(
-                icon: const Icon(Icons.arrow_back),
+              child: ElevatedButton(
                 style: const ButtonStyle(
                     backgroundColor: WidgetStatePropertyAll(kPrimary),
                     foregroundColor: WidgetStatePropertyAll(Colors.white)),
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  SystemNavigator.pop();
                 },
-                label: const Text(
-                  "Go Back",
+                child: const Text(
+                  "Exit App",
                   style: TextStyle(fontSize: 18),
                 ),
               ),
             ),
+            ElevatedButton.icon(
+                style: const ButtonStyle(
+                    backgroundColor: WidgetStatePropertyAll(kPrimary),
+                    foregroundColor: WidgetStatePropertyAll(Colors.white)),
+                onPressed: () async {
+                  await auth.signOut();
+                },
+                icon: const Icon(Icons.logout),
+                label: const Text(
+                  "Log out",
+                )),
           ],
         ),
       ),

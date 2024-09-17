@@ -1,6 +1,4 @@
 class SubjectModel {
-  final String currentStatus;
-  final String strength;
   final String sub1;
   final String sub2;
   final String sub3;
@@ -12,9 +10,7 @@ class SubjectModel {
   final String sub9;
 
   SubjectModel(
-      {required this.currentStatus,
-      required this.strength,
-      required this.sub1,
+      {required this.sub1,
       required this.sub2,
       required this.sub3,
       required this.sub4,
@@ -25,18 +21,6 @@ class SubjectModel {
       required this.sub9});
 
   List<String> getSubjectsList() {
-    return [
-      currentStatus,
-      strength,
-      sub1,
-      sub2,
-      sub3,
-      sub4,
-      sub5,
-      sub6,
-      sub7,
-      sub8,
-      sub9
-    ];
+    return [sub1, sub2, sub3, sub4, sub5, sub6, sub7, sub8, sub9];
   }
 }

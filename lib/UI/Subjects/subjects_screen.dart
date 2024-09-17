@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:feedback_app/UI/Home/home_screen.dart';
 import 'package:feedback_app/UI/core/constants.dart';
 import 'package:feedback_app/UI/widgets/loading.dart';
@@ -57,6 +59,7 @@ class SreenSubjects extends StatelessWidget {
                   builder: (context, snapshot) {
                     SubjectModel? sub = snapshot.data;
                     List<String>? subList = sub?.getSubjectsList();
+                    log(subList.toString());
                     return snapshot.hasData
                         ? Column(
                             children: [
@@ -73,26 +76,32 @@ class SreenSubjects extends StatelessWidget {
                                         padding: const EdgeInsets.all(8.0),
                                         child: SizedBox(
                                           child: SizedBox(
-                                            height: 50,
-                                            width: 50,
-                                            child: ElevatedButton(
-                                                style: const ButtonStyle(
-                                                    backgroundColor:
-                                                        WidgetStatePropertyAll(
-                                                            kPrimary),
-                                                    foregroundColor:
-                                                        WidgetStatePropertyAll(
-                                                            Colors.white)),
-                                                onPressed: () {
-                                                  Navigator.of(context).push(
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              HomeScreen(
-                                                                  sub: subList[
-                                                                      index])));
-                                                },
-                                                child: Text(subList![index])),
-                                          ),
+                                              height: 50,
+                                              width: 50,
+                                              child: subList![index] != "null"
+                                                  ? ElevatedButton(
+                                                      style: const ButtonStyle(
+                                                          backgroundColor:
+                                                              WidgetStatePropertyAll(
+                                                                  kPrimary),
+                                                          foregroundColor:
+                                                              WidgetStatePropertyAll(
+                                                                  Colors
+                                                                      .white)),
+                                                      onPressed: () {
+                                                        Navigator.of(context).push(
+                                                            MaterialPageRoute(
+                                                                builder: (context) => HomeScreen(
+                                                                    course:
+                                                                        course,
+                                                                    subjects:
+                                                                        sub,
+                                                                    sub: subList[
+                                                                        index])));
+                                                      },
+                                                      child:
+                                                          Text(subList[index]))
+                                                  : null),
                                         ),
                                       );
                                     },

@@ -37,6 +37,8 @@ class DatabaseService {
   ) async {
     final CollectionReference fdbCollection =
         FirebaseFirestore.instance.collection(course);
+    await setSubDetails(course, 0);
+
     return await fdbCollection.doc(uid).set({
       'name': name,
       'branch': cls,
@@ -99,5 +101,28 @@ class DatabaseService {
     final CollectionReference fdbCollection =
         FirebaseFirestore.instance.collection('students');
     return fdbCollection.doc(uid).snapshots().map(_userDataFromSnapshot);
+  }
+
+  Stream<UserData> fdbSub(String sub) {
+    final CollectionReference fdbCollection =
+        FirebaseFirestore.instance.collection(sub);
+    return fdbCollection.doc(uid).snapshots().map(_userDataFromSnapshot);
+  }
+
+  Future setSubDetails(String course, int index) async {
+    final CollectionReference fdbCollection =
+        FirebaseFirestore.instance.collection(course);
+
+    return await fdbCollection.doc('profile').set({'currentIndex': index});
+  }
+
+  Future getSubDetails(String course) async {
+    final DocumentReference courseDetails =
+        FirebaseFirestore.instance.collection(course).doc('profile');
+    DocumentSnapshot snapshot = await courseDetails.get();
+
+    int cIndex = snapshot.get('currentIndex');
+
+    return cIndex;
   }
 }

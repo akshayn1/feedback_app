@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:feedback_app/UI/Message/already_submitted.dart';
 import 'package:feedback_app/UI/Subjects/subjects_screen.dart';
 import 'package:feedback_app/UI/core/constants.dart';
 import 'package:feedback_app/UI/widgets/loading.dart';
@@ -36,91 +35,84 @@ class SemesterScreen extends StatelessWidget {
           // log(uData!.branch);
 
           if (snapshot.hasData) {
-            if (uData?.isSubmitted == 'true') {
-              return const AlreadySubmitted();
-            } else {
-              return Scaffold(
-                appBar: AppBar(
-                  backgroundColor: Colors.transparent,
-                  flexibleSpace: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Center(
-                            child: Text(
-                          "Hi, ${uData!.name}",
-                          style: const TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        )),
-                      ],
-                    ),
+            return Scaffold(
+              appBar: AppBar(
+                backgroundColor: Colors.transparent,
+                flexibleSpace: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Center(
+                          child: Text(
+                        "Hi, ${uData!.name}",
+                        style: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      )),
+                    ],
                   ),
-                  actions: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ElevatedButton.icon(
-                          style: const ButtonStyle(
-                              backgroundColor: WidgetStatePropertyAll(kPrimary),
-                              foregroundColor:
-                                  WidgetStatePropertyAll(Colors.white)),
-                          onPressed: () async {
-                            await _auth.signOut();
-                          },
-                          icon: const Icon(Icons.logout),
-                          label: const Text(
-                            "Log out",
-                          )),
-                    )
-                  ],
                 ),
-                body: Column(
-                  children: [
-                    const Text(
-                      "Please Select your Semester ",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                    Expanded(
-                      child: SizedBox(
-                        child: ListView.builder(
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
+                actions: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton.icon(
+                        style: const ButtonStyle(
+                            backgroundColor: WidgetStatePropertyAll(kPrimary),
+                            foregroundColor:
+                                WidgetStatePropertyAll(Colors.white)),
+                        onPressed: () async {
+                          await _auth.signOut();
+                        },
+                        icon: const Icon(Icons.logout),
+                        label: const Text(
+                          "Log out",
+                        )),
+                  )
+                ],
+              ),
+              body: Column(
+                children: [
+                  const Text(
+                    "Please Select your Semester ",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  Expanded(
+                    child: SizedBox(
+                      child: ListView.builder(
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: SizedBox(
                               child: SizedBox(
-                                child: SizedBox(
-                                  height: 50,
-                                  width: 50,
-                                  child: ElevatedButton(
-                                      style: const ButtonStyle(
-                                          backgroundColor:
-                                              WidgetStatePropertyAll(kPrimary),
-                                          foregroundColor:
-                                              WidgetStatePropertyAll(
-                                                  Colors.white)),
-                                      onPressed: () {
-                                        log(semester[index]);
-                                        Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    SreenSubjects(
-                                                        semDoc: semester[index],
-                                                        course: uData.branch)));
-                                      },
-                                      child:
-                                          Text(semester[index].toUpperCase())),
-                                ),
+                                height: 50,
+                                width: 50,
+                                child: ElevatedButton(
+                                    style: const ButtonStyle(
+                                        backgroundColor:
+                                            WidgetStatePropertyAll(kPrimary),
+                                        foregroundColor: WidgetStatePropertyAll(
+                                            Colors.white)),
+                                    onPressed: () {
+                                      log(semester[index]);
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  SreenSubjects(
+                                                      semDoc: semester[index],
+                                                      course: uData.branch)));
+                                    },
+                                    child: Text(semester[index].toUpperCase())),
                               ),
-                            );
-                          },
-                          itemCount: semester.length,
-                        ),
+                            ),
+                          );
+                        },
+                        itemCount: semester.length,
                       ),
                     ),
-                  ],
-                ),
-              );
-            }
+                  ),
+                ],
+              ),
+            );
           } else {
             return const Loading();
           }

@@ -36,6 +36,12 @@ class RegisterScreen extends StatelessWidget {
     return RegExp(r'^[\w-\.]+@[a-zA-Z]+\.[a-zA-Z]{2,}$').hasMatch(email);
   }
 
+  bool isRegNoValid(String regno) {
+    // Basic email validation using regex
+    // You can implement more complex validation if needed
+    return RegExp(r'^[A-Z]+\d+[A-Z]+\d+$').hasMatch(regno);
+  }
+
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -118,8 +124,8 @@ class RegisterScreen extends StatelessWidget {
                               valueListenable: registerNum,
                               builder: (context, value, child) {
                                 return TextFormField(
-                                  validator: (value) => value!.isEmpty
-                                      ? 'Please Enter your register number'
+                                  validator: (value) => !isRegNoValid(value!)
+                                      ? 'Invalid register number'
                                       : null,
                                   onChanged: (value) {
                                     registerNum.value = value;
@@ -205,7 +211,7 @@ class RegisterScreen extends StatelessWidget {
                                   return ElevatedButton(
                                       style: const ButtonStyle(
                                         backgroundColor:
-                                            MaterialStatePropertyAll<Color>(
+                                            WidgetStatePropertyAll<Color>(
                                                 kPrimary),
                                       ),
                                       onPressed: () async {
