@@ -48,7 +48,7 @@ class HomeScreen extends StatelessWidget {
     "Teacher promptly values and returns papers",
   ];
   final String name = '';
-
+  final ValueNotifier<bool> isFinshed = ValueNotifier(false);
   final List<int> rate = [
     0,
     0,
@@ -107,8 +107,10 @@ class HomeScreen extends StatelessWidget {
             return StreamBuilder<UserData>(
               stream: DatabaseService(uid: user.uid).fdbSub(sub),
               builder: (context, snapshot) {
+                log(isFinshed.value.toString());
                 UserData? subUdata = snapshot.data;
-                if (subUdata?.isSubmitted == 'true') {
+                if (subUdata?.isSubmitted == 'true' &&
+                    isFinshed.value == false) {
                   return const AlreadySubmitted();
                 } else {
                   return Scaffold(
@@ -237,99 +239,103 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     floatingActionButton: SizedBox(
-                        height: 50,
-                        width: 120,
-                        child: ElevatedButton(
-                            onPressed: () async {
-                              int strength = await DataFetch(
-                                      doc: 'profile', course: course)
-                                  .getCourseData();
-                              try {
-                                currentIndex =
-                                    await DatabaseService(uid: user.uid)
-                                        .getSubDetails(sub);
-                              } catch (e) {
-                                currentIndex = 0;
-                              }
+                      height: 50,
+                      width: 120,
+                      child: ElevatedButton(
+                          onPressed: () async {
+                            isFinshed.value = true;
+                            log(isFinshed.value.toString());
+                            int strength =
+                                await DataFetch(doc: 'profile', course: course)
+                                    .getCourseData();
+                            try {
+                              currentIndex =
+                                  await DatabaseService(uid: user.uid)
+                                      .getSubDetails(sub);
+                            } catch (e) {
+                              currentIndex = 0;
+                            }
 
-                              if (strength == currentIndex) {
-                                log('Full');
-                                if (!context.mounted) return;
-                                Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(builder: (context) {
-                                  return const ResponsesCompleted();
-                                }));
-                              } else {
-                                await DatabaseService(uid: user.uid)
-                                    .updateUserData(
-                                  'true',
-                                  sub,
-                                  uData.name,
-                                  uData.branch,
-                                  uData.regNo,
-                                  rate[0],
-                                  rate[1],
-                                  rate[2],
-                                  rate[3],
-                                  rate[4],
-                                  rate[5],
-                                  rate[6],
-                                  rate[7],
-                                  rate[8],
-                                  rate[9],
-                                  rate[10],
-                                  rate[11],
-                                  rate[12],
-                                  rate[13],
-                                  rate[14],
-                                  rate[15],
-                                  rate[16],
-                                  rate[17],
-                                  rate[18],
-                                  rate[19],
-                                );
-                                await DatabaseService(uid: user.uid)
-                                    .updateUserData(
-                                  'true',
-                                  'students',
-                                  uData.name,
-                                  uData.branch,
-                                  uData.regNo,
-                                  0,
-                                  0,
-                                  0,
-                                  0,
-                                  0,
-                                  0,
-                                  0,
-                                  0,
-                                  0,
-                                  0,
-                                  0,
-                                  0,
-                                  0,
-                                  0,
-                                  0,
-                                  0,
-                                  0,
-                                  0,
-                                  0,
-                                  0,
-                                );
-                                log(currentIndex.toString());
-                                await DatabaseService(uid: user.uid)
-                                    .setSubDetails(sub, currentIndex + 1);
-                                if (!context.mounted) return;
-                                Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(builder: (context) {
-                                  return const SuccessfullScreen();
-                                }));
-                              }
-                            },
-                            child: const Text(
-                              "Submit",
-                              style: TextStyle(fontSize: 20),
-                            ))),
+                            if (strength == currentIndex) {
+                              log('Full');
+                              if (!context.mounted) return;
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(builder: (context) {
+                                return const ResponsesCompleted();
+                              }));
+                            } else {
+                              await DatabaseService(uid: user.uid)
+                                  .updateUserData(
+                                'true',
+                                sub,
+                                uData.name,
+                                uData.branch,
+                                uData.regNo,
+                                rate[0],
+                                rate[1],
+                                rate[2],
+                                rate[3],
+                                rate[4],
+                                rate[5],
+                                rate[6],
+                                rate[7],
+                                rate[8],
+                                rate[9],
+                                rate[10],
+                                rate[11],
+                                rate[12],
+                                rate[13],
+                                rate[14],
+                                rate[15],
+                                rate[16],
+                                rate[17],
+                                rate[18],
+                                rate[19],
+                              );
+                              await DatabaseService(uid: user.uid)
+                                  .updateUserData(
+                                'true',
+                                'students',
+                                uData.name,
+                                uData.branch,
+                                uData.regNo,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                              );
+                              log(currentIndex.toString());
+                              await DatabaseService(uid: user.uid)
+                                  .setSubDetails(sub, currentIndex + 1);
+                              if (!context.mounted) return;
+
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(builder: (context) {
+                                return const SuccessfullScreen();
+                              }));
+                            }
+                          },
+                          child: const Text(
+                            "Submit",
+                            style: TextStyle(fontSize: 20),
+                          )),
+                    ),
                   );
                 }
               },

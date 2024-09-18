@@ -63,10 +63,10 @@ class ResponsesCompleted extends StatelessWidget {
                     backgroundColor: WidgetStatePropertyAll(kPrimary),
                     foregroundColor: WidgetStatePropertyAll(Colors.white)),
                 onPressed: () {
-                  SystemNavigator.pop();
+                  Navigator.of(context).pop();
                 },
                 child: const Text(
-                  "Exit App",
+                  "Go Back",
                   style: TextStyle(fontSize: 18),
                 ),
               ),

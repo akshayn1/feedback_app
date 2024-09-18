@@ -125,4 +125,21 @@ class DatabaseService {
 
     return cIndex;
   }
+
+  Future setSubjects() async {
+    final CollectionReference testCollection =
+        FirebaseFirestore.instance.collection('Aeronautical');
+
+    return await testCollection.doc('s8').set({
+      'sub1': "AOT402",
+      'sub2': "Elective-3",
+      'sub3': "Elective-4",
+      'sub4': "Elective-5",
+      'sub5': "AOT404",
+      'sub6': "AOD416",
+      'sub7': "null",
+      'sub8': "null",
+      'sub9': "null",
+    });
+  }
 }
