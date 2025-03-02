@@ -31,8 +31,6 @@ flutter run
 
 ---
 
----
-
 ## 📝 How It Works
 1️⃣ **Students** log in and submit feedback for their faculty members.  
 2️⃣ **Admins** can log in to view and manage feedback submissions.  
@@ -40,10 +38,7 @@ flutter run
 
 ---
 
-## 🤝 Contributing
-Contributions are welcome! Feel free to **fork** the repo and submit a **pull request**.
 
----
 
 ## 📜 License
 This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
