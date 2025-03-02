@@ -23,7 +23,7 @@ A **Flutter-based** Faculty Feedback System that allows students to provide feed
 
 ## 📥 Installation
 ```sh
-git clone https://github.com/your-username/faculty-feedback-system.git
+git clone https://github.com/akshayn1/feedback_app.git
 cd faculty-feedback-system
 flutter pub get
 flutter run
